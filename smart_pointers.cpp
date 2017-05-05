@@ -68,6 +68,17 @@ public:
         return this->pObject;
     }
     
+    //operators overloading
+    Object* operator->()
+    {
+        return this->pObject;
+    }
+    
+    Object& operator*()
+    {
+        return *(this->pObject);
+    }
+    
 };
 
 
@@ -92,5 +103,17 @@ int main()
         container.ptr()->set(3);
         std::cout << container.ptr()->get() << std::endl;
     }
+    
+    
+    {
+        ScopedPointer container( new Object(33) );
+        std::cout << container->get() << std::endl;
+    }
+    
+    {
+        ScopedPointer container( new Object(44) );
+        std::cout << (*container).get() << std::endl;
+    }
+    
     return 0;
 }
