@@ -41,6 +41,12 @@ private:
     //contained object
     Object * pObject;
     
+    //private copy constructor
+    ScopedPointer(const ScopedPointer& p) {}
+    
+    //private assingment operator
+    ScopedPointer& operator= (const ScopedPointer p) {}
+    
 public:
     //constructor - storing object inside container
     ScopedPointer(Object * pObject)
@@ -68,17 +74,17 @@ public:
 int main()
 {
     {
-        ScopedPointer container = new Object();
+        ScopedPointer container( new Object() );
         std::cout << container.ptr()->get() << std::endl;
     }
     
     {
-        ScopedPointer container = new Object(5);
+        ScopedPointer container( new Object(5) );
         std::cout << container.ptr()->get() << std::endl;
     }
     
     {
-        ScopedPointer container = new Object(1);
+        ScopedPointer container( new Object(1) );
         std::cout << container.ptr()->get() << std::endl;
         
         container.ptr()->set(3);
