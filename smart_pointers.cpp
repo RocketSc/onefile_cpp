@@ -57,7 +57,9 @@ public:
     //destructor - delete contained object
     ~ScopedPointer()
     {
-        delete this->pObject;
+        if (this->pObject) {
+            delete this->pObject;
+        }
     }
     
     //reference to contained object
