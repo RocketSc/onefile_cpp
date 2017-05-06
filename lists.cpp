@@ -4,7 +4,6 @@ class SingleList
 {
 private:
     int value;
-    SingleList* next;
     
     //private Copy constructor
     SingleList(const SingleList& list) {};
@@ -30,7 +29,10 @@ private:
         
         return true;
     }
-    
+
+protected:
+    SingleList* next;
+
 public:
     
     //constructor
@@ -47,7 +49,7 @@ public:
     }
     
     //adding value to the end of the list
-    void addValue(int value)
+    virtual void addValue(int value)
     {
         SingleList* current = this;
         
@@ -69,12 +71,35 @@ public:
         
         return counter;
     }
+}; //end of SingleList class
+
+class DoubleList: public SingleList
+{
+private:
+    SingleList* prev;
+    
+public:
+    DoubleList(int value) : SingleList(value)
+    {
+        prev = 0;
+    }
+    
+    void addValue(int value)
+    {
+        DoubleList* current = this;
+        while(current->next != 0) {
+            current = (DoubleList*) current->next;
+        }
+        
+        current->next = new DoubleList(value);
+        ((DoubleList*) current->next)->prev = current;
+    }
 };
 
 int main()
 
 {
-    SingleList list(1);
+    DoubleList list(1);
     
     list.addValue(2);
     list.addValue(3);
